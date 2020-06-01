@@ -1,4 +1,4 @@
 # ignore a file type
 *.npz
 # ignore an entire directory
-/home/beto/git/DoggoNet/perritos
+/home/beto/git/DoggoNet/perritos/*.jpg
