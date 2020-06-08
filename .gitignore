@@ -1,0 +1,5 @@
+# ignore a file type
+*.npz
+# ignore an entire directory
+perritos/
+.ipynb_checkpoints/
