@@ -4,3 +4,4 @@
 # ignore an entire directory
 perritos*/
 .ipynb_checkpoints/
+.idea/
