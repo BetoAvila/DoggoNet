@@ -1,3 +1,6 @@
+#ignore files
+weights*
+checkpoint
 # ignore a file type
 *.npz
 *.xlsx

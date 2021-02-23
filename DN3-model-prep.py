@@ -1,7 +1,4 @@
-from pathlib import Path
 from PIL import Image
-from matplotlib import pyplot as plt
-import glob, os
 from tensorflow import keras
 from tensorflow.keras import layers
 import numpy as np
@@ -43,10 +40,9 @@ model = keras.Sequential(
 )
 model.summary()
 
-batch_size = 128
+batch_size = 200
 epochs = 15
 
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
-dn_input.files
