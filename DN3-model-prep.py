@@ -29,21 +29,35 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 # Model initialization
 model = keras.Sequential([keras.Input(shape=(240, 320, 3))])
 
+
+# Defining building blocks
+def add_conv_lyr(num_neurons, k_size, act_func, times=1):
+    for i in range(times):
+        model.add(layers.Conv2D(num_neurons, kernel_size=k_size, activation=act_func))
+
+
+def add_max_pool_lyr(p_size, times=1):
+    for i in range(times):
+        model.add(layers.MaxPooling2D(pool_size=p_size))
+
+
+def add_dense_lyr(num_neurons, act_func, times=1):
+    for i in range(times):
+        model.add(layers.Dense(num_neurons, activation=act_func))
+
+
 # Adding logic to the model
-model.add(layers.Conv2D(64, kernel_size=(3,3), activation='relu'))
-model.add(layers.Conv2D(64, kernel_size=(3,3), activation='relu'))
-model.add(layers.MaxPooling2D(pool_size=(2,2)))
+add_conv_lyr(64, (3, 3), 'relu', 2)
+add_max_pool_lyr((2, 2))
+add_conv_lyr(64, (3, 3), 'relu', 2)
+add_max_pool_lyr((2, 2))
 
-model.add(layers.Conv2D(64, kernel_size=(3,3), activation='relu'))
-model.add(layers.Conv2D(64, kernel_size=(3,3), activation='relu'))
-model.add(layers.MaxPooling2D(pool_size=(2,2)))
-
-add_dense_lyr(model, 100, 'tanh', 3)
+add_dense_lyr(100, 'tanh', 3)
 
 # Ending model
 model.add(layers.Flatten())
 model.add(layers.Dropout(0.5))
-add_dense_lyr(model, num_classes, 'softmax')
+add_dense_lyr(num_classes, 'softmax')
 model.summary()
 
 batch_size = 100
