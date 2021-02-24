@@ -4,7 +4,7 @@ import glob, os
 
 # Resize images
 path = "/home/beto/Documents/projects/DoggoNet/"
-size = (320, 240)
+size = (300, 225)
 i = 1
 for infile in glob.glob(path + "perritos_org/*.jpeg"):  # for all jpg files
     file, ext = os.path.splitext(infile)

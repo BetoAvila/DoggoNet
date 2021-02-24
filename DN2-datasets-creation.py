@@ -1,6 +1,5 @@
-from pathlib import Path
 from PIL import Image
-import glob, os
+import glob
 import numpy as np
 
 # Appending datapoints
@@ -21,7 +20,7 @@ for infile in glob.glob(path + '*.jpeg'):  # for every jpeg file
         etq.append(np.asarray([2.0]))
     if 'katy' in infile.lower():
         etq.append(np.asarray([3.0]))
-    if i % 400 == 0: print(i // 400)
+    if i % 400 == 0: print(i // 400, 'out of 10')
     i += 1
 
 # Creating np arrays from labels and datapoints
@@ -36,3 +35,4 @@ X_train, X_test, y_train, y_test = train_test_split(dat, etq, train_size=0.85, r
 
 # Save datasets as .npz file
 np.savez_compressed('DN-dataset.npz', X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+print('.npz file created')
