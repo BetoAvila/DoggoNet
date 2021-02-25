@@ -1,6 +1,7 @@
 #ignore files
 weights*
 checkpoint
+*model*
 # ignore a file type
 *.npz
 *.xlsx

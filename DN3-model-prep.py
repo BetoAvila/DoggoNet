@@ -27,7 +27,7 @@ y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
 # Model initialization
-model = keras.Sequential([keras.Input(shape=(240, 320, 3))])
+model = keras.Sequential([keras.Input(shape=(225, 300, 3))])
 
 
 # Defining building blocks
@@ -47,9 +47,11 @@ def add_dense_lyr(num_neurons, act_func, times=1):
 
 
 # Adding logic to the model
-add_conv_lyr(64, (3, 3), 'relu', 2)
+add_conv_lyr(64, (3, 3), 'relu')
 add_max_pool_lyr((2, 2))
-add_conv_lyr(64, (3, 3), 'relu', 2)
+add_conv_lyr(48, (3, 3), 'relu')
+add_max_pool_lyr((2, 2))
+add_conv_lyr(32, (3, 3), 'relu')
 add_max_pool_lyr((2, 2))
 
 add_dense_lyr(100, 'tanh', 3)
@@ -60,9 +62,10 @@ model.add(layers.Dropout(0.5))
 add_dense_lyr(num_classes, 'softmax')
 model.summary()
 
-batch_size = 100
+batch_size = 340
 epochs = 12
 
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 print('\n-------------------- MODEL COMPILED AND READY --------------------\n\n')
+
 model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
