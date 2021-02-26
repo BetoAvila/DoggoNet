@@ -3,6 +3,14 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import numpy as np
 
+import tensorflow as tf
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="-1" 
+
+config = tf.compat.v1.ConfigProto()
+config.gpu_options.allow_growth = True
+sess = tf.compat.v1.InteractiveSession(config=config)
+
 # Importing data
 dn_input = np.load('/home/beto/Documents/projects/DoggoNet/DN-dataset.npz')
 
@@ -62,7 +70,7 @@ model.add(layers.Dropout(0.5))
 add_dense_lyr(num_classes, 'softmax')
 model.summary()
 
-batch_size = 340
+batch_size = 34 * 3
 epochs = 12
 
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
