@@ -1,9 +1,18 @@
 <<<<<<< HEAD
+#ignore files
+weights*
+checkpoint
+*model*
+=======
+<<<<<<< HEAD
  
 =======
 >>>>>>> 4f44c51bd9a5ae1f76eadb27bcb4d8abbe20193a
+>>>>>>> master
 # ignore a file type
 *.npz
+*.xlsx
 # ignore an entire directory
-perritos/
+perritos*/
 .ipynb_checkpoints/
+.idea/
