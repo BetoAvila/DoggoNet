@@ -20,46 +20,57 @@ model = keras.models.load_model(path + 'model_03mar21_9900')
 
 
 # Definition
-def test_image(num):
+def predict_image(num):
     d = {0: 'Jack', 1: 'Luna', 2: 'Volt', 3: 'Katy'}
-    etiqueta = dn_input['y_test'][num]
+    i_real = dn_input['y_test'][num]
     foto = dn_input['X_test'][num]
     foto = np.multiply(foto, 255).astype(np.int8)
     result = model.predict(dn_input['X_test'][num].reshape(1, 225, 300, 3)).flatten()
     val = result.max()
-    i = np.where(np.isclose(result, val))[0][0]
-    print('Neural network predicts this is {}\nShowing image to compare'.format(d[i]))
-    Image.fromarray(foto, 'RGB').show()
+    i_pred = np.where(np.isclose(result, val))[0][0]
+    return 'The neural net predicts this is {}\nand the actual dog is {}'.format(d[i_pred], d[i_real[0]])
+    # Image.fromarray(foto, 'RGB').show()
 
 
 ############## TKinter
-root = tk.Tk()  # Begining of GUI
+root = tk.Tk()  # Begining of GUI'The neural net predicts this is {}\nand the actual dog is {}'.format(i_pred, i_real)
+root.configure(background='white')
+root.resizable(width=False, height=False)
 root.title('DoggoNet')
 
 # Canvas creation
-canvas = tk.Canvas(root, width=480, height=480)  # variable to draw widgets
-canvas.grid(columnspan=2)  # divide canvas in 3 identical invisible columns
+canvas = tk.Canvas(root, width=1080, height=480, bg='white')  # variable to draw widgets
+canvas.grid(columnspan=4)  # divide canvas in 3 identical invisible columns
 
 # Adding a photo
 photo = Image.open(path + 'DN_logo.png')
 photo = ImageTk.PhotoImage(photo)
 photo_label = tk.Label(image=photo)
 photo_label.image = photo
-photo_label.grid(columnspan=3, row=0)
+photo_label.grid(column=0, row=0)
 
 # Adding a label
-label = tk.Label(root,
-                        text='Select a photo by typing a number\nbetween 0 and 599 to test DoggoNet',
-                        font=("Ubuntu", 20))
-label.grid(columnspan=3, row=1)
-
-# Adding a button
-predict_btn = tk.Button(root, text='Predict', height=3,
-                        width=12, font=('Arial', 16))
-predict_btn.grid(column=2, row=2)
+label = tk.Label(root, bg='white',
+                 text='Select a photo by typing a number\nbetween 0 and 599 to test DoggoNet',
+                 font=("Ubuntu", 20))
+label.grid(column=0, row=1)
 
 # Adding a text input
-in_text = tk.Text(root, height=1, width=6, font=("Ubuntu", 20))
-in_text.grid(column=1, row=2)
+in_text = tk.Text(root, height=1, width=6, font=("Ubuntu", 18))
+in_text.grid(column=0, row=2)
 
+
+def get_num():
+    num = in_text.get(1.0, 'end-1c')
+    if not num.isnumeric():
+        label.config(text=num, bg='red')
+    else:
+        num = int(num)
+        out_text = predict_image(num)
+        label.config(text=out_text, bg='white')
+
+
+# Adding a button
+predict_btn = tk.Button(root, text='Predict', height=2, width=9, font=('Ubuntu', 16), command=get_num)
+predict_btn.grid(column=1, row=2)
 root.mainloop()  # End of GUI
