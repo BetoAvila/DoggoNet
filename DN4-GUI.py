@@ -37,15 +37,29 @@ root = tk.Tk()  # Begining of GUI
 root.title('DoggoNet')
 
 # Canvas creation
-canvas = tk.Canvas(root, width=40, height=60)  # variable to draw widgets
-canvas.grid(columnspan=3)  # divide canvas in 3 identical invisible columns
-photo = Image.open(path + 'perritos_org/Jack0.jpeg')
+canvas = tk.Canvas(root, width=480, height=480)  # variable to draw widgets
+canvas.grid(columnspan=2)  # divide canvas in 3 identical invisible columns
+
+# Adding a photo
+photo = Image.open(path + 'DN_logo.png')
 photo = ImageTk.PhotoImage(photo)
 photo_label = tk.Label(image=photo)
 photo_label.image = photo
-photo_label.grid(column=1, row=0)
+photo_label.grid(columnspan=3, row=0)
 
-instructions = tk.Label(root, text='Select a photo between 0 and 599 to test DoggoNet')
-instructions.grid(columnspan=3, column=0, row=1)
+# Adding a label
+label = tk.Label(root,
+                        text='Select a photo by typing a number\nbetween 0 and 599 to test DoggoNet',
+                        font=("Ubuntu", 20))
+label.grid(columnspan=3, row=1)
+
+# Adding a button
+predict_btn = tk.Button(root, text='Predict', height=3,
+                        width=12, font=('Arial', 16))
+predict_btn.grid(column=2, row=2)
+
+# Adding a text input
+in_text = tk.Text(root, height=1, width=6, font=("Ubuntu", 20))
+in_text.grid(column=1, row=2)
 
 root.mainloop()  # End of GUI
