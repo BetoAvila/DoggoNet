@@ -15,7 +15,7 @@ sess = tf.compat.v1.InteractiveSession(config=config)
 # Importing data and model
 path = '/home/beto/Documents/projects/DoggoNet/'
 dn_input = np.load(path + 'DN-dataset.npz')
-model = keras.models.load_model(path + 'model_03mar21_9832')
+model = keras.models.load_model(path + 'model_03mar21_9832_h5')
 
 from tensorflow.keras import layers
 
